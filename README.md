@@ -14,6 +14,13 @@ Maintained by [OpulentiaAI](https://github.com/OpulentiaAI).
 
 See [`aws/SOURCE.md`](aws/SOURCE.md) for per-skill URLs and install notes.
 
+## Reference documents
+
+| File | Description |
+|------|-------------|
+| [`docs/Confluence-PTREE-010626-130110.pdf`](docs/Confluence-PTREE-010626-130110.pdf) | Confluence export (PTREE project documentation) |
+| [`docs/input-sample-data.zip`](docs/input-sample-data.zip) | Sample input data archive (`Opulent/catalog.zip` and catalog overview) |
+
 ## Upstream sources
 
 1. **MongoDB** — https://github.com/mongodb/agent-skills  
