@@ -166,15 +166,36 @@ def sample_products_parts(open_member: Callable[[str], Iterator[dict]], target: 
     return chosen[:target]
 
 
+def model_has_ipl(doc: dict) -> bool:
+    ipl = doc.get("ipl")
+    return (isinstance(ipl, list) and len(ipl) > 0) or (isinstance(ipl, dict) and bool(ipl))
+
+
 def sample_products_models(open_member: Callable[[str], Iterator[dict]], target: int = 200) -> list[dict]:
-    out: list[dict] = []
+    with_ipl: list[dict] = []
+    other: list[dict] = []
     for doc in open_member("catalog/products.bson"):
         if (doc.get("type") or "").strip().lower() != "model":
             continue
-        out.append(doc)
-        if len(out) >= target:
+        if model_has_ipl(doc):
+            with_ipl.append(doc)
+        else:
+            other.append(doc)
+        if len(with_ipl) >= min(80, target) and len(with_ipl) + len(other) >= target * 2:
             break
-    return out
+    out = with_ipl[: min(120, len(with_ipl))]
+    need = target - len(out)
+    out.extend(other[:need])
+    if len(out) < target:
+        for doc in open_member("catalog/products.bson"):
+            if (doc.get("type") or "").strip().lower() != "model":
+                continue
+            if doc in out:
+                continue
+            out.append(doc)
+            if len(out) >= target:
+                break
+    return out[:target]
 
 
 def sample_inventory(open_member: Callable[[str], Iterator[dict]], target: int = 500) -> list[dict]:
@@ -338,7 +359,7 @@ Small JSON/JSONL slices for agent analysis **without** Git LFS or full BSON on d
 |------|----------|
 | `source_profile.json` | Streamed aggregate metrics (synced from `discoveries/profiles/`) |
 | `samples/products-parts-sample.jsonl` | {len(parts)} `type=part` documents (bucketed: deleted, unapproved, empty stock, IPL, photos) |
-| `samples/products-models-sample.jsonl` | {len(models)} `type=model` documents |
+| `samples/products-models-sample.jsonl` | {len(models)} `type=model` documents (prioritizes non-empty `ipl` — IPL linkage is on models in this archive) |
 | `samples/inventory-sample.jsonl` | {len(inventory)} inventory rows |
 | `field-catalog.json` | Key frequency from sample scan |
 | `manifest.json` | Full-archive checksums & what is **not** in git |

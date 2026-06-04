@@ -6,7 +6,7 @@ Small JSON/JSONL slices for agent analysis **without** Git LFS or full BSON on d
 |------|----------|
 | `source_profile.json` | Streamed aggregate metrics (synced from `discoveries/profiles/`) |
 | `samples/products-parts-sample.jsonl` | 500 `type=part` documents (bucketed: deleted, unapproved, empty stock, IPL, photos) |
-| `samples/products-models-sample.jsonl` | 200 `type=model` documents |
+| `samples/products-models-sample.jsonl` | 200 `type=model` documents (prioritizes non-empty `ipl` — IPL linkage is on models in this archive) |
 | `samples/inventory-sample.jsonl` | 500 inventory rows |
 | `field-catalog.json` | Key frequency from sample scan |
 | `manifest.json` | Full-archive checksums & what is **not** in git |
