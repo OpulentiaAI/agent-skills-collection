@@ -1,0 +1,16 @@
+{
+  "name": "@ptree/migration-assessment",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "validate-schema": "node scripts/validate_schema.mjs",
+    "profile-gaps": "node scripts/profile_client_gaps_nl.mjs",
+    "transform-dry-run": "node scripts/run_transform_dry_run.mjs",
+    "simulate-events": "node scripts/simulate_eventbridge.mjs"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

@@ -1,0 +1,12 @@
+service,environment,access_type,principal_or_role,endpoint_or_resource,status,verified_at,verification_method,deferral_owner,deferral_scope_impact,notes
+AWS,org,account/region,,,unknown,,,local-only workspace; no live AWS credentials in repo,,,
+DocumentDB,dev|staging|prod,snapshot|live-read,,cluster/connection-string,deferred,2026-06-02,local BSON sample only,Human Migration Lead,Batch A-D blocked for live source; local dry-run uses Opulent/catalog.zip,See source_snapshot_manifest.json
+Shopware,dev|staging|prod,Admin API OAuth/client,,base-url + /api,unknown,,,requires human credentials,,G3 blocked until smoke tests
+CDN,prod,read URL resolve,,cdn-base,unknown,,,,,media URL strategy per Confluence
+S3,prod|staging,read/list objects,,bucket/prefix,unknown,,,,,asset storage per Confluence
+Jira,org,read issues/plan,,site,deferred,,,Human Migration Lead,G0 planning audit optional for local dry-run,,
+Figma,org,read designs,,team/file,deferred,,,Human Migration Lead,G0 planning audit optional for local dry-run,,
+Confluence,org,read export/pages,workspace export,agent-skills-collection/docs/Confluence-PTREE-010626-130110.pdf,ready,2026-06-02,file on disk,none,,PDF present; not ingested to mapping_contract yet
+Lambda,sync,invoke/deploy,,function-arn,unknown,,,,,Batch F
+EventBridge,sync,publish/subscribe,,bus/rule,unknown,,,,,Batch F; compact events per strategy
+DynamoDB,sync,read/write ledger,,table,unknown,,,,,Batch F event ledger

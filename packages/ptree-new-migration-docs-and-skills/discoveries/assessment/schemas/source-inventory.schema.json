@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://partstree.local/schemas/source-inventory.schema.json",
+  "title": "DocumentDB inventory collection document",
+  "type": "object",
+  "required": ["source", "meta"],
+  "additionalProperties": true,
+  "properties": {
+    "source": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Joined from products.stock"
+    },
+    "price": {
+      "type": ["string", "number", "null"],
+      "description": "Decimal string in source; 3,670 unparseable in profile"
+    },
+    "availability": {
+      "type": ["string", "null"],
+      "enum": ["ava", "nla", "obs", null],
+      "description": "Legacy availability codes"
+    },
+    "quantity_on_hand": {
+      "type": ["integer", "number", "null"],
+      "minimum": 0
+    },
+    "source_touch": { "type": ["string", "null"] },
+    "cost": { "type": ["string", "number", "null"] },
+    "list": { "type": ["string", "number", "null"] },
+    "meta": {
+      "type": "object",
+      "required": ["approved", "deleted"],
+      "properties": {
+        "approved": { "type": "boolean" },
+        "deleted": { "type": "boolean" },
+        "review": { "type": ["string", "boolean", "null"] }
+      }
+    }
+  }
+}

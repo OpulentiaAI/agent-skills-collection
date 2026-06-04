@@ -1,0 +1,71 @@
+{
+  "dry_run_groups": [
+    {
+      "group_name": "parts_to_shopware_products",
+      "source_collection": "products",
+      "target_shopware_entity": "product",
+      "candidate_count": 4759440,
+      "blocked_count": 323782,
+      "loadable_count": 4435658,
+      "required_gate": "approved=true, deleted=false, target schema/custom fields exist, stock join handled"
+    },
+    {
+      "group_name": "models_to_shopware_categories",
+      "source_collection": "products",
+      "target_shopware_entity": "category",
+      "candidate_count": 382743,
+      "blocked_count": 141758,
+      "loadable_count": 240985,
+      "required_gate": "approved=true, deleted=false, model/category mapping frozen"
+    },
+    {
+      "group_name": "inventory_to_product_stock_price",
+      "source_collection": "inventory",
+      "target_shopware_entity": "product stock/price/custom fields",
+      "candidate_count": 3626867,
+      "blocked_count": 3718,
+      "loadable_count": 3623149,
+      "required_gate": "approved=true, deleted=false, price parseable, stock fallback contract frozen"
+    },
+    {
+      "group_name": "media_assets_to_shopware_media",
+      "source_collection": "assets",
+      "target_shopware_entity": "media",
+      "candidate_count": 0,
+      "blocked_count": 1,
+      "loadable_count": 0,
+      "required_gate": "blocked: full assets.bson not supplied"
+    },
+    {
+      "group_name": "ipls_to_custom_entity",
+      "source_collection": "assets/products",
+      "target_shopware_entity": "custom entity ipl + joins",
+      "candidate_count": 0,
+      "blocked_count": 1,
+      "loadable_count": 0,
+      "required_gate": "blocked: full assets/IPL source not supplied and plugin/API not externally validated"
+    }
+  ],
+  "quality_issue_counts": {
+    "inventory_missing_quantity_on_hand": 2735879,
+    "product_missing_stock_ref": 590649,
+    "source_marked_deleted": 438998,
+    "source_unapproved": 26574,
+    "inventory_price_parse_failure": 3670,
+    "inventory_price_outlier": 105,
+    "product_stock_ref_missing_inventory": 16
+  },
+  "missing_stock_ref_sources": {
+    "CSYSHUS 587037003": 3,
+    "CSYSECH 1917033": 3,
+    "CSYSECH E415000100": 2,
+    "CSYSKOH 25-403-47-S": 1,
+    "CSYSGEA 0G9594": 1,
+    "CSYSROP 223-4567": 1,
+    "CSYSROP 111-1111": 1,
+    "CSYSROP 987-6543": 1,
+    "CSYSROP 00-00": 1,
+    "CSYSNGK 6535": 1,
+    "CSYSHUS 596564004 ": 1
+  }
+}

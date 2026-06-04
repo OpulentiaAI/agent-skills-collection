@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://partstree.local/schemas/normalized-ipl.schema.json",
+  "title": "Normalized IPL intermediate row",
+  "type": "object",
+  "required": ["ipl_source_id", "status", "model_source_id"],
+  "properties": {
+    "ipl_source_id": { "type": "string" },
+    "model_source_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["blocked_no_assets", "blocked_plugin_unverified", "loadable"]
+    },
+    "hotspots": { "type": "array", "items": { "type": "object" } },
+    "cdn_url": { "type": ["string", "null"] },
+    "part_refs": { "type": "array", "items": { "type": "string" } },
+    "payload_hash": { "type": "string" }
+  }
+}

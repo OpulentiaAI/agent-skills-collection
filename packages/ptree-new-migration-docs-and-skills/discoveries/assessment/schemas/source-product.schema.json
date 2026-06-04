@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://partstree.local/schemas/source-product.schema.json",
+  "title": "DocumentDB products collection document",
+  "type": "object",
+  "required": ["source", "type", "meta"],
+  "additionalProperties": true,
+  "properties": {
+    "source": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Primary idempotency key; maps to productNumber / external id"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["part", "model"]
+    },
+    "title": { "type": ["string", "null"] },
+    "description": { "type": ["string", "array", "null"] },
+    "model_name": {
+      "type": ["array", "null"],
+      "items": { "type": "string" }
+    },
+    "product_family": {
+      "type": ["array", "null"],
+      "items": { "type": "string" }
+    },
+    "marketing_brand": {
+      "type": ["array", "null"],
+      "items": { "type": "string" }
+    },
+    "manufacturing_brand": {
+      "type": ["array", "null"],
+      "items": { "type": "string" }
+    },
+    "stock": {
+      "type": ["string", "null"],
+      "description": "Join key to inventory.source"
+    },
+    "photos": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Asset source refs; join to assets collection"
+    },
+    "ipl": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "IPL source refs on model rows"
+    },
+    "equipment_type": { "type": ["string", "array", "null"] },
+    "meta": {
+      "type": "object",
+      "required": ["approved", "deleted"],
+      "properties": {
+        "inserted": { "type": ["string", "object"] },
+        "updated": { "type": ["string", "object"] },
+        "approved": { "type": "boolean" },
+        "deleted": { "type": "boolean" },
+        "review": { "type": ["string", "boolean", "null"] },
+        "comments": { "type": ["string", "null"] }
+      }
+    },
+    "sync": {
+      "type": ["boolean", "string", "null"],
+      "description": "Rarely present; prefer meta.* workflow flags"
+    }
+  }
+}

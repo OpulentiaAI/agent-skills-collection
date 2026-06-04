@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://partstree.local/schemas/compact-sync-event.schema.json",
+  "title": "PTREE catalog compact sync event (Batch F)",
+  "description": "Source IDs and correlation metadata only — never full DocumentDB documents. Matches Confluence EventBridge design and Phase 7 strategy.",
+  "type": "object",
+  "required": [
+    "eventVersion",
+    "eventType",
+    "correlationId",
+    "sourceCollection",
+    "sourceId",
+    "changeType",
+    "emittedAt"
+  ],
+  "properties": {
+    "eventVersion": { "type": "string", "const": "1.0" },
+    "eventType": {
+      "type": "string",
+      "enum": [
+        "ptree.catalog.model.changed",
+        "ptree.catalog.part.changed",
+        "ptree.catalog.inventory.changed",
+        "ptree.catalog.ipl.changed",
+        "ptree.catalog.media.changed"
+      ]
+    },
+    "correlationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "End-to-end trace; matches DynamoDB ledger sort key suffix"
+    },
+    "sourceCollection": {
+      "type": "string",
+      "enum": ["products", "inventory", "assets"]
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "products.source or inventory.source or assets.source"
+    },
+    "entityType": {
+      "type": "string",
+      "enum": ["part", "model", "inventory", "ipl", "media"]
+    },
+    "changeType": {
+      "type": "string",
+      "enum": ["insert", "update", "replace", "delete"]
+    },
+    "documentKey": {
+      "type": "object",
+      "description": "Optional Mongo _id hex only",
+      "properties": {
+        "_id": { "type": "string" }
+      }
+    },
+    "workflowHint": {
+      "type": "object",
+      "properties": {
+        "approved": { "type": "boolean" },
+        "deleted": { "type": "boolean" }
+      },
+      "description": "Minimal flags for routing; full record fetched by processor"
+    },
+    "emittedAt": { "type": "string", "format": "date-time" },
+    "changeStreamToken": { "type": ["string", "null"] }
+  },
+  "maxProperties": 12
+}

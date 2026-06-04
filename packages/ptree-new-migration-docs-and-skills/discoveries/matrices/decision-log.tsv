@@ -1,0 +1,11 @@
+ts	phase	decision	why	evidence	result
+2026-06-02T16:42:00Z	frame	used pstack figure-it-out and show-me-your-work discipline	this is a large migration/root-cause investigation that must be auditable	sources/cursor-pstack-skills/figure-it-out/SKILL.md	VERIFIED
+2026-06-02T16:42:00Z	frame	treated repo zip as source data archive	the attached artifact was a PDF and the repo README names docs/input-sample-data.zip as sample input data	README.md	VERIFIED
+2026-06-02T16:47:00Z	inventory	extracted nested source archive	user requested unzipping data and the repo archive contained catalog.zip	docs/input-sample-data.zip	VERIFIED
+2026-06-02T16:51:00Z	analysis	wrote a reusable BSON profiling script	the source is multi-GB and needed a rerunnable proof instead of hand inspection	discoveries/matrices/local-migration-dry-run-summary.json	VERIFIED
+2026-06-02T16:57:00Z	analysis	decoded all supplied product and inventory BSON records	needed actual counts, quality signals, and join checks before recommending a strategy	discoveries/matrices/local-migration-dry-run-summary.json	VERIFIED
+2026-06-02T17:00:00Z	blockers	recorded live external-service access as a blocker	only GitHub and DeepWiki integrations were installed and no secrets were available	discoveries/blocker-strategy-report.md	INCONCLUSIVE
+2026-06-02T17:08:00Z	scope	proceeded without external credentials	user selected Skip, so live migration validation was intentionally out of scope for this pass	discoveries/matrices/local-migration-dry-run-summary.json	VERIFIED
+2026-06-02T17:11:00Z	dry-run	built a local migration package	needed loadable and blocked counts from real source data without touching external services	discoveries/dry-run-groups.csv	VERIFIED
+2026-06-02T17:21:00Z	strategy	created agentic execution strategy	user clarified desired output is a better plan plus how to use agents with verification	discoveries/agentic-migration-execution-strategy.md	VERIFIED
+2026-06-02T17:24:00Z	strategy	sequenced agents in dependent batches	parallel agents must not start work that depends on unresolved access/source/mapping/target contracts	agent/orchestration/agent-batch-launch-plan.md	VERIFIED

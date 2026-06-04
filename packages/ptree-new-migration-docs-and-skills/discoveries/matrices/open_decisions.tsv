@@ -1,0 +1,18 @@
+decision_id	theme	question	owner	severity	status	evidence_paths	gate_ids	scope_impact_if_deferred
+OD-01	models_categories	Model records → Shopware category vs custom entity		blocker	open	mapping-contract-starter.csv L10; Confluence PDF	G2,G3	Blocks 141K+ model rows
+OD-02	ipl	IPL mock/invisible policy and join model		blocker	open	mapping-contract-starter.csv L11; Confluence IPL plugin	G2,G3,G4	Entire IPL track
+OD-03	media_ipl_scope	Defer vs block until full assets.bson + plugin smoke		blocker	open	dry-run-groups.csv; local-migration-dry-run-summary.json	G0,G1,G4	0 loadable media/IPL today
+OD-04	stock_fallback	Stock fallback when products.stock empty (973K+)		blocker	open	mapping-contract-starter.csv L5; quality-issue-counts.csv	G2,G4	Inventory join failures
+OD-05	quantity_on_hand	Default/reject when quantity_on_hand absent (2.74M)		blocker	open	mapping-contract-starter.csv L8	G2,G4	Stock contract
+OD-06	publication_gating	Deleted (439K) and unapproved (26K) Shopware semantics		blocker	open	quality-issue-counts.csv	G2,G4	All load groups
+OD-07	availability_enum	Map ava/nla/obs → Shopware fields		high	open	mapping-contract-starter.csv L7	G2	
+OD-08	price_validation	Price parse failures and outlier policy		high	open	mapping-contract-starter.csv L6	G2,G4	3670 parse failures
+OD-09	description_truncate	Truncate policy for Shopware max lengths		medium	open	mapping-contract-starter.csv L4	G2	
+OD-10	brand_dedupe	Brand/manufacturer de-dupe rules		medium	open	mapping-contract-starter.csv L2	G2	
+OD-11	custom_field_parity	Custom fields/plugins dev/staging/prod parity		blocker	open	Confluence PDF; verification-gates G3	G3	Blocks loaders
+OD-12	external_credentials	AWS/DocumentDB/Shopware/CDN live access		blocker	open	decision-log.tsv L7; secrets_readiness.md	G0,G3,G5+	Blocks live loads
+OD-13	planning_access	Jira/Figma/Confluence audit for approvals		medium	open	verification-gates G0	G0	Optional for local dry-run
+OD-14	sync_architecture	Event ledger vs full-record EventBridge payloads		high	open	agentic-migration-execution-strategy.md Phase 7	G8	Post-MVP sync
+OD-15	cutover	Human cutover criteria staging → prod		deferred	open	verification-gates G7	G7	Batch E
+OD-16	sample_vs_live	Treat opulent-sample-2026-06-01 as sufficient for G1 vs require live DocumentDB freeze + checksums		blocker	open	source_profile.json; source_data_blockers.md SDB-02	G0,G1,G7	False confidence in prod loadability
+OD-17	workflow_meta_path	Map cataloger flags: meta.approved/deleted/review vs top-level sync field in ETL contract		high	open	source_profile.json record_samples; Confluence PDF	G2	Silent skip of unapproved/deleted rows

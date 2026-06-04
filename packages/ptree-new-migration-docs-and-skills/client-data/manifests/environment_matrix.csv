@@ -1,0 +1,4 @@
+environment,aws_account_id,aws_region,documentdb_cluster,shopware_base_url,shopware_version,cdn_base,s3_media_bucket,secrets_backend,parity_notes,owner
+dev,,,,,,,,,not configured in workspace,Human Migration Lead
+staging,,,,,,,,,not configured in workspace,Human Migration Lead
+prod,,,,,,,,,not configured in workspace,Human Migration Lead

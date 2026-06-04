@@ -1,0 +1,74 @@
+{
+  "batch": "A",
+  "inspected_at": "2026-06-02T00:00:00Z",
+  "next_batch_ready": false,
+  "agents": [
+    {
+      "agent": "Access/Infra Agent",
+      "verdict": "NOT_VERIFIED",
+      "summary": "Starter access/environment matrices and secrets doc created; live AWS/DocumentDB/Shopware still unknown.",
+      "artifacts": [
+        "access_matrix.csv",
+        "environment_matrix.csv",
+        "secrets_readiness.md",
+        "quota_limits.md"
+      ],
+      "blockers": [
+        {
+          "blocker": "Shopware and DocumentDB credentials not in workspace",
+          "severity": "critical",
+          "evidence": "secrets_readiness.md",
+          "recommended_action": "Human Migration Lead provisions dev Shopware OAuth and documents in environment_matrix.csv"
+        }
+      ]
+    },
+    {
+      "agent": "Source Snapshot Agent",
+      "verdict": "INCONCLUSIVE",
+      "summary": "Manifest and restore proof document sample archive; per-BSON checksums pending; assets/IPL collections missing.",
+      "artifacts": [
+        "source_snapshot_manifest.json",
+        "restore_proof.md"
+      ],
+      "blockers": [
+        {
+          "blocker": "assets.bson not in sample archive",
+          "severity": "critical",
+          "evidence": "local-migration-dry-run-summary.json",
+          "recommended_action": "Obtain full assets snapshot or approved deferral in source_snapshot_manifest.json"
+        }
+      ]
+    },
+    {
+      "agent": "Target Shopware Agent",
+      "verdict": "NOT_VERIFIED",
+      "summary": "No Shopware schema snapshot or API smoke tests; G3 artifacts absent.",
+      "artifacts": [],
+      "blockers": [
+        {
+          "blocker": "No Shopware Admin API access",
+          "severity": "critical",
+          "evidence": "decision-log.tsv row 7",
+          "recommended_action": "Run schema export and write/read smoke against dev Shopware"
+        }
+      ]
+    },
+    {
+      "agent": "Project Evidence Agent",
+      "verdict": "NOT_VERIFIED",
+      "summary": "Evidence index and open_decisions.tsv created; 15 decisions lack owners.",
+      "artifacts": [
+        "evidence_index.md",
+        "open_decisions.tsv"
+      ],
+      "blockers": [
+        {
+          "blocker": "Mapping architecture decisions unresolved",
+          "severity": "critical",
+          "evidence": "open_decisions.tsv OD-01, OD-02, OD-03",
+          "recommended_action": "Human Domain Owner assigns owners and resolves top 5 escalations"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://partstree.local/schemas/normalized-product.schema.json",
+  "title": "Normalized part (type=part) intermediate row",
+  "type": "object",
+  "required": [
+    "source_id",
+    "entity_type",
+    "workflow_status",
+    "stock_join_status",
+    "brand_keys"
+  ],
+  "properties": {
+    "source_id": { "type": "string" },
+    "entity_type": { "const": "part" },
+    "title": { "type": ["string", "null"] },
+    "workflow_status": {
+      "type": "string",
+      "enum": ["loadable", "skipped_deleted", "skipped_unapproved", "skipped_review", "blocked_policy"]
+    },
+    "meta_approved": { "type": "boolean" },
+    "meta_deleted": { "type": "boolean" },
+    "meta_review": { "type": ["string", "boolean", "null"] },
+    "stock_ref": { "type": ["string", "null"] },
+    "stock_join_status": {
+      "type": "string",
+      "enum": ["joined", "missing_ref", "missing_inventory", "inventory_deleted"]
+    },
+    "inventory": {
+      "type": ["object", "null"],
+      "properties": {
+        "price": { "type": ["number", "null"] },
+        "price_parse_ok": { "type": "boolean" },
+        "availability": { "type": ["string", "null"] },
+        "quantity_on_hand": { "type": ["integer", "null"] },
+        "quantity_status": {
+          "type": "string",
+          "enum": ["present", "absent", "zero"]
+        }
+      }
+    },
+    "photos_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "media_status": {
+      "type": "string",
+      "enum": ["has_refs", "empty_refs", "blocked_no_assets_collection"]
+    },
+    "brand_keys": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 0
+    },
+    "payload_hash": { "type": "string", "pattern": "^sha256:" }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$comment": "Client-editable mapping policy defaults. See config/README.md for field descriptions.",
+  "modelTarget": {
+    "decision": "undecided",
+    "allowedValues": ["category", "custom_entity", "undecided"],
+    "description": "How type=model rows map in Shopware (Confluence Option 1 vs 2)"
+  },
+  "publication": {
+    "deletedPolicy": "skip",
+    "unapprovedPolicy": "skip",
+    "reviewPolicy": "skip",
+    "allowedDeletedValues": ["skip", "load_inactive"],
+    "description": "Workflow gating for meta.deleted, meta.approved, meta.review"
+  },
+  "stock": {
+    "emptyStockRefFallback": "zero",
+    "missingQuantityFallback": "zero",
+    "allowedFallbacks": ["zero", "skip"],
+    "description": "Behavior when products.stock is empty or inventory.quantity_on_hand absent"
+  },
+  "media": {
+    "requireAssetsCollection": true,
+    "cdnBase": null,
+    "description": "photos[] refs require assets.bson + CDN base to resolve media URLs"
+  },
+  "shopware": {
+    "currencyIdPlaceholder": "PLACEHOLDER_USD",
+    "idempotencyKeyField": "source_id",
+    "description": "Replace currencyIdPlaceholder with live Shopware currency UUID at deploy time"
+  },
+  "assets": {
+    "collectionPresent": false,
+    "description": "Set true when assets.bson is available in snapshot or live DocumentDB"
+  }
+}

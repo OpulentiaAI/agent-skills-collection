@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://partstree.local/schemas/shopware-custom-fields.schema.json",
+  "title": "PartsTree Shopware custom field bundle",
+  "type": "object",
+  "properties": {
+    "custom_part_source_id": { "type": "string" },
+    "custom_part_pt_stock_id": { "type": ["string", "null"] },
+    "custom_part_availability_code": {
+      "type": ["string", "null"],
+      "enum": ["ava", "nla", "obs", null]
+    },
+    "custom_images_cdn_url": { "type": ["string", "null"] },
+    "custom_model_source_id": { "type": ["string", "null"] },
+    "custom_ipl_source_id": { "type": ["string", "null"] },
+    "custom_equipment_type": { "type": ["string", "null"] },
+    "custom_meta_review": { "type": ["string", "boolean", "null"] }
+  },
+  "additionalProperties": true,
+  "description": "Parity across dev/staging/prod unverified (OD-11); IPL plugin fields require PartsTreeIplPlugin"
+}

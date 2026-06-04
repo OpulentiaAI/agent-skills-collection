@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://partstree.local/schemas/shopware-media-ref.schema.json",
+  "title": "Shopware media association by external CDN/source ref",
+  "type": "object",
+  "required": ["sourceAssetId", "mediaStatus"],
+  "properties": {
+    "sourceAssetId": {
+      "type": "string",
+      "description": "products.photos[] or assets.source value"
+    },
+    "cdnUrl": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Resolved CDN URL; null when assets.bson unavailable"
+    },
+    "mediaStatus": {
+      "type": "string",
+      "enum": ["resolved", "unresolved_no_assets", "unresolved_no_cdn_base"]
+    },
+    "position": { "type": "integer", "minimum": 0 },
+    "cover": { "type": "boolean" }
+  }
+}

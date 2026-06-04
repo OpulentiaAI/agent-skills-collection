@@ -1,0 +1,18 @@
+discovery_id	segment	intent_id	blocker_type	delay_weeks_estimate	preventable	agent_role_that_would_catch	week_in_3mo_plan	evidence_ref
+DISC-001	media_ipl	INT-002,INT-003	data	4	yes	Media/IPL Contract Agent	4	assets_collection_present=false; source_profile.json#collections_present.assets.status=missing; segment-findings/media_ipl.md
+DISC-002	workflow_meta	INT-013	vendor	0	yes	Access/Infra Agent	0	profile_verdict=MEASURED_SAMPLE_NOT_PRODUCTION_FREEZE; source_profile.json#profile_verdict; segment-findings/workflow_meta.md
+DISC-003	products_models	INT-014	decision	20	yes	Mapping Contract Agent	2	model_mapping_block_rate_sample=92.3%; model_mapping_block_count_est_full=141758; transform_stats.json#policies.OD01_DECISION=UNDECIDED; segment-findings/products_models.md
+DISC-004	workflow_meta	INT-004	schema	3	yes	Mapping Contract Agent	2	meta_deleted_product_rate=8.5%; meta_unapproved_product_count=26545; SDB-meta-map; segment-findings/workflow_meta.md
+DISC-005	stock_joins	INT-007	data	3	yes	Mapping Contract Agent	2	parts_with_empty_stock_rate=20.4%; product_stock_join_ok_count=81.1%; SDB-stock-empty; segment-findings/stock_joins.md
+DISC-006	inventory	INT-007	data	3	yes	Data Quality Queue Agent	2	inventory_qty_on_hand_missing_rate=75.4%; inventory_nla_share=70.9%; segment-findings/inventory.md
+DISC-007	brands_on_products	INT-001	schema	20	yes	Source Profile Agent	1	hierarchy_collections_present=false; equipment_type_empty_rate=93.0%; SDB-hierarchy-collapse; segment-findings/brands_on_products.md
+DISC-008	stock_joins	INT-010	process	6	yes	Independent Verification Agent	6	transform_sample_error_rate=0.2837; transform_stats.json#transform.blocked_no_media=2065; segment-findings/stock_joins.md
+DISC-009	—	INT-006	process	6	yes	Independent Verification Agent	6	transform.success=7879/11000; payload_hash_ledger.sqlite absent per post-mortem §8 week 5-6
+DISC-010	—	INT-005	schema	12	yes	Event Contract Agent	12	product_document_count=5142183; compact-event design Confluence § ongoing sync; post-mortem §8 week 10-12
+DISC-011	media_ipl	INT-003	data	4	yes	Media/IPL Contract Agent	4	parts_blocked_no_media_rate_sample=20.65%; transform_stats.json#policies.CDN_BASE=null; segment-findings/media_ipl.md
+DISC-012	inventory	INT-007	data	2	partial	Data Quality Queue Agent	2	inventory_price_unparseable_count=3670; transform_stats.json#transform.blocked_price_parse=56; SDB-price-parse; segment-findings/inventory.md
+DISC-013	products_models	INT-002	data	4	yes	Media/IPL Contract Agent	4	products_with_ipl_field_count=355939; assets_collection_present=false; segment-findings/products_models.md
+DISC-014	workflow_meta	INT-015	data	2	yes	Source Profile Agent	1	collections_present.attributes.status=missing; intent-comparison-report.md#INT-015
+DISC-015	stock_joins	INT-007	data	2	yes	Mapping Contract Agent	2	stock_fallback_used_count_sample=1054; transform_stats.json#policies.STOCK_FALLBACK=zero; segment-findings/stock_joins.md
+DISC-016	products_parts	INT-011	data	0	yes	Source Profile Agent	1	part_document_count=4759440; segment-findings/products_parts.md
+DISC-017	stock_joins	INT-012	data	2	yes	Source Profile Agent	2	product_stock_missing_inventory_count=15; SDB-stock-orphan; segment-findings/stock_joins.md

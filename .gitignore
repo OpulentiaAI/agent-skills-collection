@@ -1,3 +1,8 @@
 .DS_Store
 .agents/
 skills-lock.json
+
+# PTREE migration package — local mongodump (keep manifests only)
+packages/**/client-data/snapshot/**/*.bson
+packages/**/client-data/snapshot/**/catalog.zip
+packages/**/node_modules/

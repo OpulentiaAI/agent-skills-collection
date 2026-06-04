@@ -1,0 +1,76 @@
+{
+  "snapshot_id": "opulent-sample-2026-06-01",
+  "snapshot_type": "local_archive",
+  "source_environment": "sample (not live DocumentDB)",
+  "captured_at": "2026-06-01T18:23:00Z",
+  "archive_paths": [
+    {
+      "path": "agent-skills-collection/docs/input-sample-data.zip",
+      "inner_path": "Opulent/catalog.zip",
+      "size_bytes": 702567387,
+      "checksum_sha256": "7a0883a1dd7c4ac6ce019072b70a3e8ca1db31f5528249dc4fa0ddbc63965c4b",
+      "notes": "Checksums verified 2026-06-02; BSON extracted under client-data/snapshot/catalog/catalog/",
+      "outer_zip_sha256": "e31a36c49a7439c9f971e2af6e4de5aee803518d67700dff5aa981620cc4ebf9",
+      "outer_zip_size_bytes": 702570094
+    }
+  ],
+  "collections": [
+    {
+      "name": "products",
+      "status": "verified_checksum",
+      "document_count": 5142183,
+      "bson_file": "NewDiscoveriesandPlans/ptree-new-migration-docs-and-skills/client-data/snapshot/catalog/catalog/products.bson",
+      "checksum_sha256": "f183ee27107831230cb8757cd2688b2439ddad19ff05578fc67212d7282c28cd"
+    },
+    {
+      "name": "inventory",
+      "status": "verified_checksum",
+      "document_count": 3626867,
+      "bson_file": "NewDiscoveriesandPlans/ptree-new-migration-docs-and-skills/client-data/snapshot/catalog/catalog/inventory.bson",
+      "checksum_sha256": "08c8e7c464c38ce55ae7d2740d4cc9061a6e5a1cfa0be901ad657413ea52b3ca"
+    },
+    {
+      "name": "accounts",
+      "status": "verified_checksum_empty",
+      "document_count": 0,
+      "bson_file": "NewDiscoveriesandPlans/ptree-new-migration-docs-and-skills/client-data/snapshot/catalog/catalog/accounts.bson",
+      "checksum_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "assets",
+      "status": "missing_or_incomplete",
+      "document_count": null,
+      "notes": "Full assets.bson not in supplied archive; blocks media/IPL"
+    },
+    {
+      "name": "attributes",
+      "status": "missing_or_incomplete",
+      "document_count": null,
+      "notes": "Metadata only in prior analysis"
+    }
+  ],
+  "dry_run_evidence": "discoveries/matrices/local-migration-dry-run-summary.json",
+  "source_profile": "discoveries/profiles/source_profile.json",
+  "source_profile_generated_at": "2026-06-04T01:17:16Z",
+  "deferrals": [
+    {
+      "collection": "assets",
+      "owner": "Human Migration Lead",
+      "scope_impact": "media_assets and ipls_to_custom_entity load groups blocked",
+      "approved": false
+    }
+  ],
+  "verification_owner": "Source Snapshot Agent",
+  "manifest_verdict": "INCONCLUSIVE",
+  "extract_path": "NewDiscoveriesandPlans/ptree-new-migration-docs-and-skills/client-data/snapshot",
+  "extract_verified_at": "2026-06-02T00:00:00Z",
+  "checksum_verification": {
+    "status": "verified_for_present_collections",
+    "verified_at": "2026-06-02T00:00:00Z",
+    "owner": "Source Snapshot Agent",
+    "pending": [
+      "assets",
+      "attributes"
+    ]
+  }
+}

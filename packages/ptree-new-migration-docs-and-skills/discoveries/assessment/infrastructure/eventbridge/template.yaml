@@ -1,0 +1,253 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  PTREE catalog sync EventBridge bus (assessment artifact).
+  Compact ID-only events per Confluence design. Deploy requires AWS credentials;
+  local simulation available via discoveries/assessment/scripts/simulate_eventbridge.mjs
+
+Parameters:
+  EnvironmentName:
+    Type: String
+    Default: dev
+    AllowedValues: [dev, staging, prod]
+    Description: Deployment tier; prefixes bus, rules, Lambdas, and ledger table.
+
+  LogRetentionDays:
+    Type: Number
+    Default: 14
+    MinValue: 1
+    MaxValue: 365
+    Description: CloudWatch log retention for sync processor Lambdas.
+
+  EnableMediaRule:
+    Type: String
+    Default: 'true'
+    AllowedValues: ['true', 'false']
+    Description: Disable media rule until assets.bson pipeline is verified.
+
+Conditions:
+  MediaRuleEnabled: !Equals [!Ref EnableMediaRule, 'true']
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 120
+    MemorySize: 512
+    Tracing: Active
+    Environment:
+      Variables:
+        ENVIRONMENT: !Ref EnvironmentName
+        LOG_LEVEL: INFO
+
+Resources:
+  PtreeCatalogSyncBus:
+    Type: AWS::Events::EventBus
+    Properties:
+      Name: !Sub ptree-catalog-sync-${EnvironmentName}
+      Tags:
+        - Key: project
+          Value: ptree-migration
+        - Key: batch
+          Value: F
+
+  SyncDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub ptree-catalog-sync-dlq-${EnvironmentName}
+      MessageRetentionPeriod: 1209600
+      Tags:
+        - Key: project
+          Value: ptree-migration
+
+  ModelChangedRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: !Sub ptree-model-changed-${EnvironmentName}
+      Description: Routes compact model change events (sourceId only) to model sync processor. Processor fetches DocumentDB record — never full doc on bus.
+      EventBusName: !Ref PtreeCatalogSyncBus
+      EventPattern:
+        source: [ptree.documentdb.collector]
+        detail-type: [ptree.catalog.model.changed]
+      State: ENABLED
+      Targets:
+        - Id: ModelSyncProcessorTarget
+          Arn: !GetAtt ModelSyncProcessorFunction.Arn
+          DeadLetterConfig:
+            Arn: !GetAtt SyncDeadLetterQueue.Arn
+
+  PartChangedRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: !Sub ptree-part-changed-${EnvironmentName}
+      Description: Part upserts after workflow gating (approved/deleted/review) applied in processor.
+      EventBusName: !Ref PtreeCatalogSyncBus
+      EventPattern:
+        source: [ptree.documentdb.collector]
+        detail-type: [ptree.catalog.part.changed]
+      State: ENABLED
+      Targets:
+        - Id: PartSyncProcessorTarget
+          Arn: !GetAtt PartSyncProcessorFunction.Arn
+          DeadLetterConfig:
+            Arn: !GetAtt SyncDeadLetterQueue.Arn
+
+  InventoryChangedRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: !Sub ptree-inventory-changed-${EnvironmentName}
+      EventBusName: !Ref PtreeCatalogSyncBus
+      EventPattern:
+        source: [ptree.documentdb.collector]
+        detail-type: [ptree.catalog.inventory.changed]
+      State: ENABLED
+      Targets:
+        - Id: InventorySyncProcessorTarget
+          Arn: !GetAtt InventorySyncProcessorFunction.Arn
+          DeadLetterConfig:
+            Arn: !GetAtt SyncDeadLetterQueue.Arn
+
+  IplChangedRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: !Sub ptree-ipl-changed-${EnvironmentName}
+      EventBusName: !Ref PtreeCatalogSyncBus
+      EventPattern:
+        source: [ptree.documentdb.collector]
+        detail-type: [ptree.catalog.ipl.changed]
+      State: ENABLED
+      Targets:
+        - Id: IplSyncProcessorTarget
+          Arn: !GetAtt IplSyncProcessorFunction.Arn
+          DeadLetterConfig:
+            Arn: !GetAtt SyncDeadLetterQueue.Arn
+
+  MediaChangedRule:
+    Type: AWS::Events::Rule
+    Condition: MediaRuleEnabled
+    Properties:
+      Name: !Sub ptree-media-changed-${EnvironmentName}
+      Description: Media asset sync; disable via EnableMediaRule=false until assets collection available.
+      EventBusName: !Ref PtreeCatalogSyncBus
+      EventPattern:
+        source: [ptree.documentdb.collector]
+        detail-type: [ptree.catalog.media.changed]
+      State: ENABLED
+      Targets:
+        - Id: MediaSyncProcessorTarget
+          Arn: !GetAtt MediaSyncProcessorFunction.Arn
+          DeadLetterConfig:
+            Arn: !GetAtt SyncDeadLetterQueue.Arn
+
+  EventLedgerTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub ptree-sync-event-ledger-${EnvironmentName}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: status-index
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+            - AttributeName: sk
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+
+  ModelSyncProcessorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ptree-sync-model-${EnvironmentName}
+      Handler: index.handler
+      CodeUri: lambda-stub/
+      Description: Fetches model by sourceId; maps to category or custom entity per client policy.
+      Policies:
+        # Least privilege: ledger read/write + DocumentDB read (VPC) + Shopware secret read — tighten ARNs at deploy
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventLedgerTable
+      Environment:
+        Variables:
+          LEDGER_TABLE: !Ref EventLedgerTable
+          EVENT_TYPE: ptree.catalog.model.changed
+          SHOPWARE_API_URL: !Sub '{{resolve:ssm:/ptree/${EnvironmentName}/shopware/admin_url}}'
+
+  PartSyncProcessorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ptree-sync-part-${EnvironmentName}
+      Handler: index.handler
+      CodeUri: lambda-stub/
+      Description: Part product upsert with stock join and workflow gating.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventLedgerTable
+      Environment:
+        Variables:
+          LEDGER_TABLE: !Ref EventLedgerTable
+          EVENT_TYPE: ptree.catalog.part.changed
+
+  InventorySyncProcessorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ptree-sync-inventory-${EnvironmentName}
+      Handler: index.handler
+      CodeUri: lambda-stub/
+      Description: Inventory/stock delta sync; updates linked part products.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventLedgerTable
+      Environment:
+        Variables:
+          LEDGER_TABLE: !Ref EventLedgerTable
+          EVENT_TYPE: ptree.catalog.inventory.changed
+
+  IplSyncProcessorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ptree-sync-ipl-${EnvironmentName}
+      Handler: index.handler
+      CodeUri: lambda-stub/
+      Description: IPL custom entity / category sync; requires assets collection.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventLedgerTable
+      Environment:
+        Variables:
+          LEDGER_TABLE: !Ref EventLedgerTable
+          EVENT_TYPE: ptree.catalog.ipl.changed
+
+  MediaSyncProcessorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ptree-sync-media-${EnvironmentName}
+      Handler: index.handler
+      CodeUri: lambda-stub/
+      Description: Media upload via Admin API; CDN URL from client contract.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventLedgerTable
+      Environment:
+        Variables:
+          LEDGER_TABLE: !Ref EventLedgerTable
+          EVENT_TYPE: ptree.catalog.media.changed
+
+Outputs:
+  EventBusName:
+    Value: !Ref PtreeCatalogSyncBus
+  EventBusArn:
+    Value: !GetAtt PtreeCatalogSyncBus.Arn
+  DeadLetterQueueUrl:
+    Value: !Ref SyncDeadLetterQueue
+  LedgerTableName:
+    Value: !Ref EventLedgerTable

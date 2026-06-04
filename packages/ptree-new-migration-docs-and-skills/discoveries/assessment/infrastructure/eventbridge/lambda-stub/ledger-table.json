@@ -1,0 +1,31 @@
+{
+  "TableName": "ptree-sync-event-ledger",
+  "KeySchema": {
+    "pk": "SOURCE#{sourceCollection}#{sourceId}",
+    "sk": "EVENT#{correlationId}"
+  },
+  "Attributes": {
+    "pk": { "type": "S", "description": "Partition key: source collection + source ID" },
+    "sk": { "type": "S", "description": "Sort key: correlation ID for idempotent dedupe" },
+    "status": {
+      "type": "S",
+      "enum": ["PENDING", "PROCESSING", "COMPLETED", "FAILED"],
+      "description": "GSI hash key for worker claim queries"
+    },
+    "eventType": { "type": "S" },
+    "changeType": { "type": "S" },
+    "payloadHash": { "type": "S", "description": "sha256 of compact event JSON" },
+    "retryCount": { "type": "N", "default": 0 },
+    "lastError": { "type": "S", "nullable": true },
+    "replayCommand": { "type": "S", "description": "CLI to re-enqueue by source key" },
+    "updatedAt": { "type": "S", "format": "iso8601" },
+    "ttl": { "type": "N", "description": "Optional TTL for completed rows" }
+  },
+  "GlobalSecondaryIndexes": {
+    "status-index": {
+      "hashKey": "status",
+      "rangeKey": "sk"
+    }
+  },
+  "IdempotencyRule": "PutItem with condition attribute_not_exists(pk) OR status=FAILED for replay"
+}

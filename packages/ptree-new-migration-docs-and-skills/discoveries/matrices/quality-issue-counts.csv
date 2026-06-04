@@ -1,0 +1,8 @@
+issue_type,count
+inventory_missing_quantity_on_hand,2735879
+product_missing_stock_ref,590649
+source_marked_deleted,438998
+source_unapproved,26574
+inventory_price_parse_failure,3670
+inventory_price_outlier,105
+product_stock_ref_missing_inventory,16

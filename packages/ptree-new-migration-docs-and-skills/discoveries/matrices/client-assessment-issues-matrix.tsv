@@ -1,0 +1,29 @@
+issue_id	client_evidence	target_requirement	gap_severity	schema_impact	transform_impact	estimated_rework_weeks	diagram_ref
+CLI-001	BSON: products.bson 5,142,183 docs; only type=part|model (no brands/IPL collections)	Confluence Catalog Hierarchy: Brand→Model→IPL→Parts as distinct Shopware entities	critical	high	high	8	D1
+CLI-002	BSON: 382,743 models vs Confluence ~300K Models in Commerce	category/custom entity capacity for all models	high	high	medium	4	D1
+CLI-003	BSON: 355,939 models with ipl[] field; assets.bson absent	Confluence: IPLs as Categories + IPL Custom Entity Plugin	critical	high	high	10	D2
+CLI-004	Overview.md: Brand Family inferred from metadata not first-class object	Brand Family category under Brand for SEO/navigation	high	medium	high	6	D1
+CLI-005	BSON: 4,784,435 products with empty equipment_type	Confluence Brand Equipment Type Page landing categories	medium	medium	medium	4	D1
+CLI-006	Confluence: Models→IPLs Option 1 vs Option 2 undecided	BSON models carry ipl[] refs only — mapping decision blocks all model loads	critical	high	high	6	D1
+CLI-007	BSON: part 4,759,440 + model 382,743 in single collection	Shopware separates categories (models/IPLs) from products (parts)	high	high	high	6	D1
+CLI-008	Overview.md hierarchy vs BSON polymorphic products.type discriminator	Explicit entity graph for Store API associations	high	high	high	5	D1
+CLI-009	BSON: assets.bson missing; 81 assets_staging metadata stubs only	Confluence media/CDN + IPL diagram assets	critical	high	high	8	D2
+CLI-010	BSON: 519,896 products with non-empty photos[] (calc: total-empty)	Shopware Admin API media upload per part	critical	high	high	6	D2
+CLI-011	BSON: 4,622,287 products photos_empty (89.9%)	Storefront product images optional but affects conversion	medium	low	low	2	D2
+CLI-012	Transform dry-run: blocked_no_media=2065/10000 parts (20.65%) with default policy	Media refs require assets join + CDN_BASE URL	high	high	medium	4	D2
+CLI-013	Confluence IPL Custom Entity Plugin; no assets join in sample	IPL diagram coordinates + part hotspots in Shopware	critical	high	high	10	D2
+CLI-014	Sample part ARIPS22PRT 3035744: 8 photos[] refs, no assets row	Resolve asset ID → binary URL → Shopware media entity	high	high	medium	3	D2
+CLI-015	Confluence: sync/review/approved/deleted cataloger flags	BSON meta.approved/deleted/review; sync rarely on sampled paths	medium	medium	medium	3	D3
+CLI-016	BSON: meta.deleted_true=438,979 (8.5% of products)	Shopware publication: skip vs inactive load policy	high	medium	high	3	D3
+CLI-017	BSON: meta.approved_false_or_missing=26,545	Confluence: ingestion must respect approved gate	high	medium	medium	2	D3
+CLI-018	Transform dry-run: skipped_deleted=77/11000 sample (0.7%)	Deleted rows still in master dump — policy affects counts	medium	low	medium	2	D3
+CLI-019	Confluence CRON ETL checks approved+deleted before website API	Continuous EventBridge sync needs same gating in processor	medium	medium	medium	3	D3
+CLI-020	BSON join: product_stock_empty=973,287 (20.4% of parts)	Shopware product.stock scalar on part product	high	medium	high	4	D4
+CLI-021	BSON inventory: quantity_on_hand_missing=2,735,879 (75.4%)	Stock quantity for salable parts / Store API	high	medium	high	4	D4
+CLI-022	BSON inventory availability nla=2,571,968 vs ava=1,054,856	NLA semantics ≠ qty zero in storefront UX	medium	medium	medium	3	D4
+CLI-023	BSON: product_stock_missing_inventory=15	Stock ref integrity — orphan refs block load	low	low	low	1	D4
+CLI-024	Transform dry-run: stock_fallback_used=1054/11000 (9.6%)	Default zero masks empty stock — distorts salability	medium	medium	medium	2	D4
+CLI-025	BSON inventory price_unparseable=3,670	Shopware price[] requires parseable gross/net	medium	low	medium	2	D4
+CLI-026	Confluence EventBridge Bus Service design; 5M+ product scale	Compact sourceId-only events + fetch-on-process	critical	medium	high	5	D5
+CLI-027	DocumentDB change streams (Confluence Change Stream Consumer) vs compact events	Collector must strip full document before PutEvents	high	medium	medium	4	D5
+CLI-028	Transform dry-run 2026-06-02: success=7879/11000 (71.6%); blocked_model_mapping=923	OD01 model target undecided blocks 84% of models in sample	critical	high	high	6	D1

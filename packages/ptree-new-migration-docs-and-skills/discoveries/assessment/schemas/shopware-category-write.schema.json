@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://partstree.local/schemas/shopware-category-write.schema.json",
+  "title": "Shopware category upsert for brand/model hierarchy",
+  "type": "object",
+  "required": ["name", "active", "customFields"],
+  "properties": {
+    "name": { "type": "string" },
+    "parentId": { "type": ["string", "null"] },
+    "active": { "type": "boolean" },
+    "visible": { "type": "boolean" },
+    "type": {
+      "type": "string",
+      "enum": ["brand", "brand_family", "model", "model_variant", "ipl_category"],
+      "description": "Semantic type; OD-01 decides model vs custom entity"
+    },
+    "source_id": { "type": "string" },
+    "customFields": { "$ref": "shopware-custom-fields.schema.json" },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

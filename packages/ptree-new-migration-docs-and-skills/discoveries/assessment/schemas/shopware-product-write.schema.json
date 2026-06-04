@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://partstree.local/schemas/shopware-product-write.schema.json",
+  "title": "Shopware Admin API product upsert (sync action)",
+  "type": "object",
+  "required": ["productNumber", "name", "active", "customFields"],
+  "properties": {
+    "productNumber": { "type": "string" },
+    "name": { "type": "string" },
+    "description": { "type": ["string", "null"] },
+    "active": { "type": "boolean" },
+    "stock": {
+      "type": "object",
+      "properties": {
+        "stock": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "price": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["currencyId", "gross", "net"],
+        "properties": {
+          "currencyId": { "type": "string" },
+          "gross": { "type": "number", "minimum": 0 },
+          "net": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "manufacturerId": { "type": ["string", "null"] },
+    "categoryIds": { "type": "array", "items": { "type": "string" } },
+    "media": {
+      "type": "array",
+      "items": { "$ref": "shopware-media-ref.schema.json" }
+    },
+    "customFields": { "$ref": "shopware-custom-fields.schema.json" },
+    "idempotencyKey": {
+      "type": "string",
+      "description": "Source products.source for upsert dedupe"
+    }
+  }
+}

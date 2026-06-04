@@ -1,0 +1,13 @@
+gate	label	pass	detail	checked_at
+G0	Access and source freeze	FAIL	5/5 artifacts; live access ready=false	2026-06-04T01:35:52.806Z
+G1	Source profile	PASS	source_profile.json present	2026-06-04T01:35:52.806Z
+G2	Mapping contract	FAIL	only mapping-contract-starter.csv	2026-06-04T01:35:52.806Z
+G3	Target schema	FAIL	0/4 Shopware contract artifacts	2026-06-04T01:35:52.806Z
+G4	Dry-run normalization	PASS	dry-run groups=5; media/IPL blocked=true	2026-06-04T01:35:52.806Z
+G5	Dev baseline load	FAIL	0/2 artifacts	2026-06-04T01:35:52.806Z
+G6	Staging baseline load	FAIL	0/2 artifacts	2026-06-04T01:35:52.806Z
+G7	Prod baseline and cutover	FAIL	0/2 artifacts	2026-06-04T01:35:52.806Z
+G8	Ongoing sync	FAIL	0/2 artifacts	2026-06-04T01:35:52.806Z
+SETUP	Agent skills wired	PASS	AGENTS.md + .agent/skills present	2026-06-04T01:35:52.806Z
+REF	Confluence PDF on disk	PASS	/Users/jeremyalston/Downloads/AltusNova/NewDiscoveriesandPlans/ptree-new-migration-docs-and-skills/client-data/confluence/Confluence-PTREE-010626-130110.pdf	2026-06-04T01:35:52.806Z
+REF	Sample data zip on disk	PASS	input-sample-data.zip present	2026-06-04T01:35:52.806Z

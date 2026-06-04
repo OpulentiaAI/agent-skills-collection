@@ -1,0 +1,3 @@
+# Local mongodump extract (>100MB); checksums live in ../manifests/source_snapshot_manifest.json
+catalog/catalog/*.bson
+Opulent/catalog.zip

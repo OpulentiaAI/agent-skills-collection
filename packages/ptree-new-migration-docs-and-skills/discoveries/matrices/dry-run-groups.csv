@@ -1,0 +1,6 @@
+group_name,source_collection,target_shopware_entity,candidate_count,blocked_count,loadable_count,required_gate
+inventory_to_product_stock_price,inventory,product stock/price/custom fields,3626867,3718,3623149,"approved=true, deleted=false, price parseable, stock fallback contract frozen"
+ipls_to_custom_entity,assets/products,custom entity ipl + joins,0,1,0,blocked: full assets/IPL source not supplied and plugin/API not externally validated
+media_assets_to_shopware_media,assets,media,0,1,0,blocked: full assets.bson not supplied
+models_to_shopware_categories,products,category,382743,141758,240985,"approved=true, deleted=false, model/category mapping frozen"
+parts_to_shopware_products,products,product,4759440,323782,4435658,"approved=true, deleted=false, target schema/custom fields exist, stock join handled"
