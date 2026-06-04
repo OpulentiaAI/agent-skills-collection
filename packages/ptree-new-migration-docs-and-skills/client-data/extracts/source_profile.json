@@ -1,0 +1,331 @@
+{
+  "profile_id": "opulent-sample-bson-2026-06-02",
+  "generated_at": "2026-06-04T01:17:16.674469+00:00",
+  "source_environment": "sample_archive_not_live_documentdb",
+  "archive": {
+    "path": "agent-skills-collection/docs/input-sample-data.zip",
+    "sha256": "e31a36c49a7439c9f971e2af6e4de5aee803518d67700dff5aa981620cc4ebf9",
+    "inner_catalog_zip": "Opulent/catalog.zip"
+  },
+  "catalog_zip_bson_members": [
+    "catalog/accounts.bson",
+    "catalog/inventory.bson",
+    "catalog/products.bson"
+  ],
+  "collections_present": {
+    "products": {
+      "bson": "catalog/products.bson",
+      "document_count": 5142183,
+      "type_distribution": {
+        "part": 4759440,
+        "model": 382743
+      },
+      "workflow_flags": {
+        "meta.approved_true": 5115638,
+        "photos_empty": 4622287,
+        "equipment_type_empty": 4784435,
+        "stock_empty": 973287,
+        "meta.deleted_true": 438979,
+        "ipl_field_present": 355939,
+        "meta.approved_false_or_missing": 26545
+      },
+      "top_marketing_brand_samples": [
+        [
+          "Briggs & Stratton",
+          424769
+        ],
+        [
+          "Lawn-Boy",
+          310621
+        ],
+        [
+          "Toro Consumer",
+          309544
+        ],
+        [
+          "Toro Commercial",
+          301653
+        ],
+        [
+          "Husqvarna",
+          264757
+        ],
+        [
+          "Cub Cadet",
+          240961
+        ],
+        [
+          "MTD",
+          216390
+        ],
+        [
+          "Snapper",
+          204678
+        ],
+        [
+          "Simplicity",
+          193288
+        ],
+        [
+          "Cub Cadet Commercial",
+          181979
+        ],
+        [
+          "Electrolux/AYP",
+          163168
+        ],
+        [
+          "Troy-Bilt",
+          161603
+        ],
+        [
+          "Poulan",
+          158678
+        ],
+        [
+          "Murray",
+          152823
+        ],
+        [
+          "Briggs & Stratton Power",
+          150856
+        ]
+      ],
+      "record_samples": [
+        {
+          "source": "ARIPS22PRT 3034421027E1K1001",
+          "type": "part",
+          "meta": {
+            "inserted": "2023-10-01 05:00:00",
+            "updated": "2023-02-12 03:23:19.249000",
+            "approved": true,
+            "deleted": false,
+            "comments": null,
+            "review": null
+          },
+          "stock": "CSYSBRP 3034421027E1K1001",
+          "photos_len": 0,
+          "marketing_brand": [
+            "Snapper"
+          ],
+          "manufacturing_brand": [
+            "Snapper"
+          ]
+        },
+        {
+          "source": "ARIPS22PRT 3034421070A1",
+          "type": "part",
+          "meta": {
+            "inserted": "2023-10-01 05:00:00",
+            "updated": "2023-02-12 03:23:19.250000",
+            "approved": true,
+            "deleted": false,
+            "comments": null,
+            "review": null
+          },
+          "stock": "CSYSBRP 3034421070A1",
+          "photos_len": 0,
+          "marketing_brand": [
+            "Snapper"
+          ],
+          "manufacturing_brand": [
+            "Snapper"
+          ]
+        },
+        {
+          "source": "ARIPS22PRT 3034421070A1K1001",
+          "type": "part",
+          "meta": {
+            "inserted": "2023-10-01 05:00:00",
+            "updated": "2023-02-12 03:23:19.252000",
+            "approved": true,
+            "deleted": false,
+            "comments": null,
+            "review": null
+          },
+          "stock": "CSYSBRP 3034421070A1K1001",
+          "photos_len": 0,
+          "marketing_brand": [
+            "Snapper"
+          ],
+          "manufacturing_brand": [
+            "Snapper"
+          ]
+        },
+        {
+          "source": "ARIPS22PRT 3034421327E1",
+          "type": "part",
+          "meta": {
+            "inserted": "2023-10-01 05:00:00",
+            "updated": "2023-02-12 03:23:19.255000",
+            "approved": true,
+            "deleted": false,
+            "comments": null,
+            "review": null
+          },
+          "stock": "CSYSBRP 3034421327E1",
+          "photos_len": 0,
+          "marketing_brand": [
+            "Snapper"
+          ],
+          "manufacturing_brand": [
+            "Snapper"
+          ]
+        },
+        {
+          "source": "ARIPS22PRT 3034421327E1K1001",
+          "type": "part",
+          "meta": {
+            "inserted": "2023-10-01 05:00:00",
+            "updated": "2023-02-12 03:23:19.256000",
+            "approved": true,
+            "deleted": false,
+            "comments": null,
+            "review": null
+          },
+          "stock": "CSYSBRP 3034421327E1K1001",
+          "photos_len": 0,
+          "marketing_brand": [
+            "Snapper"
+          ],
+          "manufacturing_brand": [
+            "Snapper"
+          ]
+        }
+      ],
+      "schema_sample_first_200_docs": {}
+    },
+    "inventory": {
+      "bson": "catalog/inventory.bson",
+      "document_count": 3626867,
+      "workflow_flags": {
+        "meta.approved_true": 3626838,
+        "source_touch_missing": 3340167,
+        "quantity_on_hand_missing": 2735879,
+        "price_unparseable": 3670,
+        "meta.approved_false_or_missing": 29,
+        "price_outlier_gt_100k": 105,
+        "meta.deleted_true": 19
+      },
+      "availability_distribution": {
+        "ava": 1054856,
+        "nla": 2571968,
+        "obs": 43
+      },
+      "max_observed_price": 380729.99,
+      "record_samples": [
+        {
+          "source": "CSYSHOM 532410001",
+          "price": "2.49",
+          "availability": "ava",
+          "quantity_on_hand": 0,
+          "meta": {
+            "inserted": "2019-08-16 19:40:09",
+            "updated": "2026-03-26 20:46:41.143000",
+            "approved": true,
+            "deleted": false,
+            "comments": null,
+            "review": null
+          }
+        },
+        {
+          "source": "CSYSHOM 099981133066",
+          "price": "26.99",
+          "availability": "ava",
+          "quantity_on_hand": 0,
+          "meta": {
+            "inserted": "2019-08-16 19:37:59",
+            "updated": "2026-03-26 20:46:41.163000",
+            "approved": true,
+            "deleted": false,
+            "comments": null,
+            "review": null
+          }
+        },
+        {
+          "source": "CSYSHON 42700-952-000XC",
+          "price": "149.99",
+          "availability": "ava",
+          "quantity_on_hand": 0,
+          "meta": {
+            "inserted": "2022-04-06 21:06:54",
+            "updated": "2025-10-01 10:16:30.053000",
+            "approved": true,
+            "deleted": false,
+            "comments": null,
+            "review": null
+          }
+        },
+        {
+          "source": "CSYSCUB 00002647",
+          "price": "25.99",
+          "availability": "nla",
+          "quantity_on_hand": null,
+          "meta": {
+            "inserted": "2018-08-30 14:52:59",
+            "updated": "2022-11-08 00:41:29.755000",
+            "approved": true,
+            "deleted": false,
+            "comments": null,
+            "review": null
+          }
+        },
+        {
+          "source": "CSYSCUB 00002673",
+          "price": "0.00",
+          "availability": "nla",
+          "quantity_on_hand": null,
+          "meta": {
+            "inserted": "2018-08-30 14:52:59",
+            "updated": "2022-08-18 17:22:29.649000",
+            "approved": true,
+            "deleted": false,
+            "comments": null,
+            "review": null
+          }
+        }
+      ],
+      "schema_sample_first_200_docs": {}
+    },
+    "accounts": {
+      "bson": "catalog/accounts.bson",
+      "document_count": 0,
+      "notes": "empty bson in sample archive"
+    },
+    "assets": {
+      "bson": null,
+      "document_count": 0,
+      "status": "missing",
+      "notes": "no assets.bson; only assets_staging_incremental_*.metadata.json stubs",
+      "metadata_stubs": 81
+    },
+    "attributes": {
+      "bson": null,
+      "status": "missing",
+      "notes": "no attributes.bson in archive"
+    },
+    "brands_models_ipls": {
+      "notes": "No separate brands/models/IPL collections; hierarchy encoded in products.type and products.ipl/assets joins",
+      "products_type_distribution": {
+        "part": 4759440,
+        "model": 382743
+      },
+      "products_with_ipl_field": 355939
+    }
+  },
+  "join_metrics": {
+    "products_stock_to_inventory_source": {
+      "product_stock_join_ok": 4168881,
+      "product_stock_empty": 973287,
+      "product_stock_missing_inventory": 15
+    },
+    "inventory_source_distinct_count": 3626863
+  },
+  "intent_alignment_notes": [
+    "Confluence/doc intent expects Brand\u2192Model\u2192IPL\u2192Parts hierarchy in Shopware; source uses single products collection with type=part|model and separate assets/IPL data not in sample.",
+    "Workflow gating documented as sync/review/approved/deleted; BSON uses meta.approved, meta.deleted, meta.review (sync rarely present on sampled paths).",
+    "Media/IPL load groups require assets.bson + plugin contract; sample archive blocks G1 media/IPL verification."
+  ],
+  "verification_owner": "Source Profile Agent",
+  "profile_verdict": "MEASURED_SAMPLE_NOT_PRODUCTION_FREEZE"
+}

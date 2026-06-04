@@ -1,0 +1,42 @@
+{
+  "extract_id": "client-data-extracts-2026-06-04",
+  "generated_at": "2026-06-04T13:58:59.872649+00:00",
+  "package_root": "ptree-new-migration-docs-and-skills",
+  "full_bson_sha256_from_manifest": {
+    "products": "f183ee27107831230cb8757cd2688b2439ddad19ff05578fc67212d7282c28cd",
+    "inventory": "08c8e7c464c38ce55ae7d2740d4cc9061a6e5a1cfa0be901ad657413ea52b3ca",
+    "accounts": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "collection_document_counts": {
+    "products": 5142183,
+    "inventory": 3626867,
+    "accounts": 0,
+    "assets": null,
+    "attributes": null
+  },
+  "outer_sample_zip_sha256": "e31a36c49a7439c9f971e2af6e4de5aee803518d67700dff5aa981620cc4ebf9",
+  "committed_in_git": [
+    "source_profile.json",
+    "manifest.json",
+    "field-catalog.json",
+    "samples/*.jsonl",
+    "samples/README.md",
+    "overview.md"
+  ],
+  "not_in_git_requires_lfs_or_local_extract": [
+    "catalog/products.bson (full ~3.5GB)",
+    "catalog/inventory.bson (full ~1.5GB)",
+    "catalog/assets.bson (missing in sample archive)",
+    "catalog/attributes.bson (missing)",
+    "agent-skills-collection/docs/input-sample-data.zip (Git LFS)",
+    "Opulent/catalog.zip inner archive"
+  ],
+  "notes": [
+    {
+      "collection": "assets",
+      "owner": "Human Migration Lead",
+      "scope_impact": "media_assets and ipls_to_custom_entity load groups blocked",
+      "approved": false
+    }
+  ]
+}
