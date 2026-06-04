@@ -3,6 +3,7 @@
 | Prompt | Use when |
 |--------|----------|
 | **[demo-client-brief.md](./demo-client-brief.md)** | **Client demo** — copy the fenced block into a new session (time-boxed, Linear + notify drafts) |
+| [known-findings-context.md](./known-findings-context.md) | **SSOT** for 16 baseline findings, sponsor executive summary, delay-narrative instructions; linked from demo brief and skills |
 | [RECREATE-ANALYSIS-AGENT-PROMPT.md](./RECREATE-ANALYSIS-AGENT-PROMPT.md) | Full methodology, citation discipline, deep engagements |
 | [linear-config.json](./linear-config.json) | Linear team/project/label — **fill `TBD` before demo** |
 | [notify-config.json](./notify-config.json) | Stakeholder emails and notify rules — **fill `TBD` before demo** |

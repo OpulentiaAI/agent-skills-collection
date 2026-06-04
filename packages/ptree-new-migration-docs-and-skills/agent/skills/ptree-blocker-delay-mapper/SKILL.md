@@ -23,6 +23,7 @@ Connect **what we found** to **what it costs in time** — for steering conversa
 
 | Input | Path |
 |-------|------|
+| Known findings + delay instructions | `agent/prompts/known-findings-context.md` · glossary `notes/glossary-and-findings.md` |
 | Segment notes | `discoveries/segments/*.md` |
 | Intent comparison | `discoveries/intent/intent-comparison-report.md` |
 | Transform feasibility | `discoveries/assessment/output/transform_stats.json` |
@@ -36,6 +37,9 @@ Connect **what we found** to **what it costs in time** — for steering conversa
 |--------|------|
 | Blocker matrix | `discoveries/blockers/blocker-delay-matrix.tsv` |
 | Narrative | `discoveries/blockers/blocker-delay-narrative.md` |
+| Demo delay prose (when in demo session) | `discoveries/demo-session-findings.md` → `## Delay and misstep narrative` |
+
+**Output shape:** Sponsor-facing **natural-language paragraphs** per material blocker (sequencing/contract failure → calendar slip → week 1–4 prevention). Matrix/TSV is the index; prose is required — not bullets-only summaries.
 
 Matrix columns (flexible): `discovery_id`, `segment`, `intent_id`, `blocker_type` (data \| schema \| process \| vendor \| decision), `delay_weeks_estimate`, `preventable`, `who_would_catch`, `evidence_ref`.
 

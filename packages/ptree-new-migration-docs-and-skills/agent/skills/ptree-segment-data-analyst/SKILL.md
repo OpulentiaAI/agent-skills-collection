@@ -39,6 +39,7 @@ Write **one segment** of a migration assessment: what the sample shows in a sing
 ## Principles
 
 - Counts and rates come from the profile — do not invent them.
+- On first use of domain terms in segment prose, cite the Part 1 definition from `notes/glossary-and-findings.md` (e.g. IPL, compact event, NLA).
 - Separate **fact** (profile path + value) from **interpretation** (labeled inference).
 - Sample ≠ production freeze; say so when it matters.
 - If transform dry-run policies mask gaps (e.g. stock fallback), say so.

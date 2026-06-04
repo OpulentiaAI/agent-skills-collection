@@ -24,6 +24,7 @@ Answer: **does the documented plan match what we can measure in the sample?**
 | Input | Path |
 |-------|------|
 | Intent registry + metrics | `discoveries/semantic-layer.md` |
+| Blocker themes (baseline) | `agent/prompts/known-findings-context.md` — tie each GAP/PARTIAL intent to a **key blocker theme** from the findings table when status is not PASS |
 | Measured values | `discoveries/profiles/source_profile.json` |
 | Confluence intent | `client-data/confluence/Confluence-PTREE-010626-130110.pdf` |
 | Segment context (optional) | `discoveries/segments/*.md` |

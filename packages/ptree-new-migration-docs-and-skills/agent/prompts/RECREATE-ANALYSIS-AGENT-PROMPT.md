@@ -54,6 +54,8 @@ All paths below are relative to the **`ptree-new-migration-docs-and-skills/`** p
 
 **Evidence rule:** Conclusions about migration readiness should trace to the PDF and/or measurements you derive from the sample in this run. Treat everything else as context or prior art — useful for orientation, not proof.
 
+**Known baseline findings (demo / steering):** Before deep discovery, read [`agent/prompts/known-findings-context.md`](./known-findings-context.md) for the measured findings table (16 rows), sponsor executive summary, and instructions for natural-language delay narratives (record under `discoveries/demo-session-findings.md` → `## Delay and misstep narrative`). Define jargon on first use from [`notes/glossary-and-findings.md`](../notes/glossary-and-findings.md) Part 1. Re-validate all counts against `client-data/extracts/source_profile.json` in this run; findings are expected context, not secrets.
+
 ### What not to treat as primary proof
 
 Prior automation outputs (gate verdicts, batch agent JSON, open-decisions registers, consulting-only blocker lists) may describe the same themes you will find, but they are not measurements. If you reference a human decision label (e.g. a model-mapping fork), pair it with the Confluence option text and a data metric from this run — not the register row alone.
