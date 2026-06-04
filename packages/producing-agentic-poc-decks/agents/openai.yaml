@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agentic POC Decks"
+  short_description: "Builds Farnsworth-style POC proposal decks that translate agentic AI into business outcomes."
+  default_prompt: "Create an outcome-led agentic POC proposal deck from the supplied brief, source files, and meeting notes. Use the bundled deck DNA, source discipline, and PPTX generator."

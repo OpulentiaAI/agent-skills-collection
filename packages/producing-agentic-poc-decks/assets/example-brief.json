@@ -1,0 +1,31 @@
+{
+  "client": "Farnsworth",
+  "partner": "Opulent",
+  "date": "June 2026",
+  "confidential_label": "CONFIDENTIAL / OPULENT x FARNSWORTH",
+  "title": "From Full-File Review to Exception Review",
+  "subtitle": "A proposal for Farnsworth: AI-assisted survey quality that reduces PM review time while strengthening data-quality assurance across Decipher cleaning, open-end QA, and the PM exception workflow.",
+  "customer_words": {
+    "bottleneck": "PMs spend 1+ hour reviewing the AI output to confirm it caught every poor-quality respondent, and they do this a few times a week on batches of roughly 50-200.",
+    "adoption_gap": "The custom GPT has not reached company-wide adoption because it is too slow and not trusted for open-ended review."
+  },
+  "validated_numbers": {
+    "respondents": "1,036",
+    "recommended_exclusions": "0",
+    "open_end_concern": "785",
+    "moderate_plus_open_end": "557",
+    "speeders": "4",
+    "straightliners": "35",
+    "brand_inconsistencies": "47"
+  },
+  "pilot": {
+    "recommended_start": "Enhanced Excel + email summary",
+    "price": "$2,500",
+    "price_policy": "Hold for SOW unless asked in meeting."
+  },
+  "slides": {
+    "include_technical_overview": true,
+    "include_addons": true,
+    "include_thank_you": true
+  }
+}

@@ -87,13 +87,14 @@ npx skills add alirezarezvani/claude-skills --skill aws-solution-architect -y --
 
 Each subdirectory retains the license of its upstream repository. Refer to upstream `LICENSE` files where present.
 
-## PartsTree migration (PTREE)
+## Packages
 
-Catalog DB → Shopware migration **analysis package** (skills, discoveries, gates, client manifests). Large mongodump BSON and `catalog.zip` stay local; checksums and restore notes are in manifests.
+Bundled skill packages and migration/analysis workspaces (not upstream mirrors under `sources/`).
 
 | Path | Description |
 |------|-------------|
-| [`packages/ptree-new-migration-docs-and-skills/`](packages/ptree-new-migration-docs-and-skills/) | Agent skills, orchestration, discovery artifacts, client-data manifests (no multi-GB BSON in git) |
+| [`packages/ptree-new-migration-docs-and-skills/`](packages/ptree-new-migration-docs-and-skills/) | PartsTree Catalog DB → Shopware migration: skills, orchestration, discovery artifacts, client-data manifests (no multi-GB BSON in git) |
+| [`packages/producing-agentic-poc-decks/`](packages/producing-agentic-poc-decks/) | Agent skill + script to distill conversations into agentic POC deck briefs and generate `.pptx` (reference templates in `assets/`) |
 
-Top-level [`docs/`](docs/) holds the Confluence PDF and `input-sample-data.zip` (Git LFS) referenced by the migration workflow.
+**PTREE:** Large mongodump BSON and `catalog.zip` stay local; checksums and restore notes are in manifests. Top-level [`docs/`](docs/) holds the Confluence PDF and `input-sample-data.zip` (Git LFS) referenced by the migration workflow.
 
