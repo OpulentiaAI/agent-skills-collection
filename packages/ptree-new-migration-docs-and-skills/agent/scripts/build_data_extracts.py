@@ -113,7 +113,8 @@ def part_buckets(doc: dict) -> list[str]:
         tags.append("unapproved")
     if empty(doc.get("stock")):
         tags.append("empty_stock")
-    if doc.get("ipl") not in (None, [], {}):
+    ipl = doc.get("ipl")
+    if (isinstance(ipl, list) and len(ipl) > 0) or (isinstance(ipl, dict) and ipl):
         tags.append("with_ipl")
     if not empty(doc.get("photos")):
         tags.append("with_photos")
