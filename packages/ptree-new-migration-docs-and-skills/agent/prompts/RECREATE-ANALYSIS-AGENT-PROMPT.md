@@ -1,6 +1,6 @@
 # PartsTree Migration Analysis — Master Brief
 
-**Purpose:** A single reference for running a thorough Catalog DB → Shopware migration assessment in a fresh agent session. Use Part 6 as the copy-paste brief, or point an agent at this file and ask it to work from Part 6 onward.
+**Purpose:** A single reference for running a Catalog DB → Shopware migration assessment in a fresh agent session. For **client demos**, use the tight copy-paste brief in [demo-client-brief.md](./demo-client-brief.md) — not Part 6 of this file. Use this master brief for methodology, citation discipline, and full-depth engagements.
 
 **Audience:** Analysts and agents producing client-facing migration findings. Tone is evidence-led and professional — suitable for a demo or steering review, not an internal compliance checklist.
 
@@ -28,6 +28,14 @@ A complete analysis gives stakeholders:
 
 You are not certifying gates, approving loaders, or closing open decisions. You are producing a credible assessment the client can act on.
 
+### Scope boundary (especially client demo)
+
+Stay inside **`client-data/`** and **`discoveries/`** outputs unless blocked. Do not treat broad repo exploration, `agent/skills/reference/`, `notes/post-mortem/`, assessment script spelunking, or historical consulting artifacts as primary work — only open them if the user asks or a specific gap cannot be resolved from the PDF + sample profile.
+
+### Time-box discovery (client demo)
+
+Orient quickly: confirm the Confluence PDF and sample zip exist, record a short snapshot manifest, run **one** profile pass, then analysis. The first in-session deliverable should be an **intent-comparison skeleton** plus at least one segment note stub; deepen from there. Do not reward long exploration passes — depth should show up in evidence and gaps, not step count.
+
 ---
 
 ## Part 2 — Source materials
@@ -38,10 +46,11 @@ All paths below are relative to the **`ptree-new-migration-docs-and-skills/`** p
 
 | Material | Location | Role |
 |----------|----------|------|
-| Confluence export | `../../agent-skills-collection/docs/Confluence-PTREE-010626-130110.pdf` | Target-state intent: hierarchy, Shopware MVP, media/CDN, workflow, sync, scale |
-| Sample archive | `../../agent-skills-collection/docs/input-sample-data.zip` | Outer zip containing nested catalog BSON |
-| Nested catalog | `Opulent/catalog.zip` inside the outer zip | `products.bson`, `inventory.bson`, and related members |
-| Overview narrative (supplementary) | `Opulent/partstree_catalog_shopware_overview.md` inside the outer zip | Helpful when the PDF is silent on a topic; not a substitute for the PDF |
+| Confluence export | `client-data/confluence/Confluence-PTREE-010626-130110.pdf` (package); or `agent-skills-collection/docs/` copy; or AltusNova `docs/` mirror | Target-state intent: hierarchy, Shopware MVP, media/CDN, workflow, sync, scale |
+| **Data extracts (primary)** | `client-data/extracts/` — `overview.md`, `source_profile.json`, `manifest.json`, `samples/*.jsonl` | Governed metrics without LFS; regen via `python3 agent/scripts/build_data_extracts.py` from package root |
+| Sample archive (optional) | `agent-skills-collection/docs/input-sample-data.zip` (collection root, LFS) | Outer zip → `Opulent/catalog.zip` → BSON members |
+| Local BSON extract (optional) | `client-data/snapshot/` | On-disk BSON for dry-runs; see `client-data/sample/README.md` |
+| Overview narrative (supplementary) | `client-data/snapshot/Opulent/partstree_catalog_shopware_overview.md` or inside the outer zip | Helpful when the PDF is silent; not a substitute for the PDF |
 
 **Evidence rule:** Conclusions about migration readiness should trace to the PDF and/or measurements you derive from the sample in this run. Treat everything else as context or prior art — useful for orientation, not proof.
 
@@ -59,7 +68,8 @@ Likewise, do not claim production DocumentDB parity, live Shopware state, or ful
 
 **How to measure:** The repo includes helpers you can use when helpful:
 
-- **`profile_source_bson.py`** (`agent/scripts/profile_source_bson.py` in this package) — streams BSON from the nested zip without a full extract; writes `discoveries/profiles/source_profile.json`
+- **`build_data_extracts.py`** (`agent/scripts/build_data_extracts.py`) — refreshes `client-data/extracts/` from the sample archive
+- **`profile_source_bson.py`** (`agent/scripts/profile_source_bson.py`, run from **package root**) — streams BSON; writes `discoveries/profiles/source_profile.json` (also mirrored in extracts when regen)
 - **Optional extract** — only if you need on-disk BSON for transform dry-runs: unzip to `client-data/snapshot/` and checksum key members
 - **Spot checks** — a handful of documents per collection to illustrate shape; **counts and rates come from the profile**, not manual guessing
 
@@ -161,8 +171,9 @@ A thorough run typically produces the artifacts below. Paths are **examples** un
 | Snapshot manifest | `source_snapshot_manifest.json` | Checksums, member list, missing collections |
 | Compiled profile | `source_profile.json` | Machine-readable counts, rates, join metrics, profile verdict |
 | Semantic layer | `semantic-layer.md` | Metric definitions, intent registry, segment map |
-| Segment notes | `segment-findings/*.md` | Per-domain metrics, observations, limitations |
-| Intent comparison | `intent-comparison-report.md` | Plan statement vs measurement vs status |
+| Segment notes | `discoveries/segments/*.md` | Per-domain metrics, observations, limitations |
+| Intent comparison | `discoveries/intent/intent-comparison-report.md` | Plan statement vs measurement vs status |
+| Live demo session doc | `discoveries/demo-session-findings.md` | Native document pane deliverable during client demo |
 | Gap narrative | `client-data-gap-profile.md` | Readable story of plan/data friction |
 | Gap register | `gap-citation-matrix.md` or ledger section | Each gap linked to Confluence + data evidence |
 | Transform notes | `discoveries/assessment/output/transform_stats.json` + short interpretation | Sample dry-run success/error breakdown, policy masks documented |
@@ -174,76 +185,38 @@ Not every engagement needs every file on day one. **Do** need: provenance, gover
 
 Optional: a short appendix on agent-fleet / batch orchestration — clearly labeled **playbook, not evidence** — if stakeholders want to see how findings would feed a gated migration program.
 
+| Reporting artifact | Example path |
+|--------------------|--------------|
+| Linear issue drafts | `discoveries/linear-drafts/{discovery-id}.md` |
+| Stakeholder notify drafts | `discoveries/notify-drafts/{issue-id}.md` |
+
+---
+
+## Part 5b — Reporting findings (demo & steering)
+
+After gaps are registered, route **material** findings (severity **high** or **medium**) into Linear and stakeholder channels. Config is placeholder until the demo — fill before go-live.
+
+### Linear issues
+
+1. Read `agent/prompts/linear-config.json` (`team_id`, `project_id`, `label`, `issue_template`).
+2. For each high/medium gap, create an issue with: **title**, **discovery ID** (`DISC-###` or gap id), **client citation** (Confluence section / page), **data metric** from `source_profile.json`, **recommended owner role** (e.g. client data, Shopware, integration), **suggested priority**.
+3. If any config value is `TBD`: write full issue bodies under `discoveries/linear-drafts/` as markdown the user can paste into Linear. **Also** attempt Linear API or MCP create if the session has credentials — do not block analysis on API availability.
+
+### Stakeholder notification
+
+1. Read `agent/prompts/notify-config.json` (`stakeholders`, `message_template`).
+2. For **key issues** — P0 blockers, missing client deliverables (e.g. assets), decisions flagged in open questions (e.g. OD-01) — send a concise email- or Slack-style summary per `notify_on` rules.
+3. If `email` is `TBD`: write drafts to `discoveries/notify-drafts/{issue-id}.md` using `message_template` fields. User sends manually after filling contacts.
+
+**Fill before demo:** replace `TBD` in both JSON files; create `discoveries/linear-drafts/` and `discoveries/notify-drafts/` as needed.
+
 ---
 
 ## Part 6 — Copy-paste agent brief
 
-Copy everything inside the block below into a new agent session. Adjust paths if your workspace root differs.
+**Client demo:** copy from [demo-client-brief.md](./demo-client-brief.md) (canonical, time-boxed, extracts-first, **native document pane** at `discoveries/demo-session-findings.md`). Do not duplicate the fenced brief here.
 
----
-
-```markdown
-# PartsTree migration analysis
-
-You are assessing a Catalog DB → Shopware migration for PartsTree. Your deliverable is a citation-backed analysis comparing **documented target state** (Confluence architecture export) to **measured sample data** (BSON archive). Write for a client steering audience: calm, precise, and honest about limits.
-
-## Goal
-
-Help stakeholders understand what the sample data actually supports relative to the migration plan — scale, hierarchy, inventory joins, media/IPL, workflow flags, and transform feasibility — and what remains blocked on client deliverables or decisions.
-
-## Sources to use
-
-Work primarily from:
-
-1. **Confluence PDF:** `agent-skills-collection/docs/Confluence-PTREE-010626-130110.pdf`
-2. **Sample archive:** `agent-skills-collection/docs/input-sample-data.zip` → `Opulent/catalog.zip` → BSON members
-3. **Supplementary (if needed):** `Opulent/partstree_catalog_shopware_overview.md` inside the zip
-
-Package root for outputs: `ptree-new-migration-docs-and-skills/`
-
-Base conclusions on what you read in the PDF and what you measure from the sample in this session. Prior gate files, agent verdict JSON, and consulting registers may hint at themes but are not proof — re-derive metrics and cite the PDF + profile instead.
-
-## How to work
-
-**Start with provenance.** Confirm the archive, record checksums, list BSON members, and note missing collections (e.g. assets, attributes). State clearly that this is a sample until the client proves a production freeze.
-
-**Profile the data.** If helpful, run `python3 agent/scripts/profile_source_bson.py` from the repo root to produce `source_profile.json`. Use governed counts and rates from that output rather than guessing from spot reads.
-
-**Read the plan.** Extract testable intentions from the Confluence export: merchandise hierarchy, Shopware MVP (Admin API, categories, IPL custom entity, custom fields), media/CDN, cataloger workflow, sync/event strategy, deterministic IDs, scale expectations. Flag ambiguous terms (e.g. "model" at BSON grain vs Shopware category).
-
-**Segment your analysis.** Cover the major domains — parts, models/IPL, inventory, workflow/meta, stock joins, media, brand/hierarchy signals. Write segment notes with metrics, observations, limitations, and clear separation of fact vs inference.
-
-**Compare intent to measurement.** For each major plan claim, record what you would expect in data, what you measured, and a status (PASS / GAP / PARTIAL / INCONCLUSIVE). Note adversarial caveats (sample limits, policy masks).
-
-**Register gaps.** Maintain a gap list or matrix: each item ties a short description to a Confluence reference and a data metric. Severity should reflect migration impact, not spreadsheet completeness.
-
-**Optional transform dry-run.** If BSON is extracted under `client-data/snapshot/`, you may run `node discoveries/assessment/scripts/run_transform_dry_run.mjs` and interpret `transform_stats.json`. Report success and error rates together; document policy knobs (stock fallback, CDN base, publication policy, model-mapping decision) so readers do not confuse sample transform success with cutover readiness.
-
-**Summarize for executives.** Produce a concise findings report: top quantitative signals, provenance, links to segment and intent detail, blockers and open questions stated in client language.
-
-## Discovery log
-
-As you work, keep a discovery log (`DISC-###`: observation, evidence pointers, confidence, open question). Feed it into segment notes, gaps, and the executive summary.
-
-## Citation style
-
-Write readable prose first. Keep an evidence ledger (footnotes, gap table, or appendix) mapping findings to Confluence sections and profile metrics. Use keys like `CONF:Catalog hierarchy` and `DATA:parts_with_empty_stock_rate` where precision helps — not every sentence needs a tag.
-
-## Helpers (optional)
-
-These repo tools can speed consistent analysis; none are mandatory choreography:
-
-- Skills: `ptree-segment-data-analyst`, `ptree-intent-comparison-analyst`, `ptree-blocker-delay-mapper` under `agent/skills/`
-- Orchestrator checklist: `agent/scripts/run_self_service_analysis.mjs`
-- Self-service guide: `notes/guides/analysis-self-service-guide.md`
-- Prior report for structure inspiration only: `notes/post-mortem/analysis-findings-report.md`
-
-## Done when
-
-A sponsor can read your executive summary, trust the numbers because they trace to `source_profile.json`, see plan-vs-data gaps with dual evidence, and understand sample vs production boundaries — without reading internal gate jargon.
-
-Write artifacts under `discoveries/` (and assessment output paths as needed). Link related files together.
-```
+**Full-depth session:** use the demo brief as a floor, then follow Parts 3–5 and Part 5b; optional transform dry-run and blocker-delay narrative when stakeholders need load-program depth.
 
 ---
 
@@ -273,7 +246,8 @@ Index: `agent/skills/README.md` · Authoring: `agent/skills/SKILL-AUTHORING.md`
 |--------|---------|
 | Archive checksum | `shasum -a 256 input-sample-data.zip` (from `agent-skills-collection/docs/`) |
 | List zip members | `unzip -l input-sample-data.zip` |
-| Profile sample (repo root) | `python3 agent/scripts/profile_source_bson.py` |
+| Regen extracts (package root) | `python3 agent/scripts/build_data_extracts.py` |
+| Profile sample (package root) | `python3 agent/scripts/profile_source_bson.py` |
 | Transform dry-run (package root) | `node discoveries/assessment/scripts/run_transform_dry_run.mjs` |
 | Self-service checklist | `node agent/scripts/run_self_service_analysis.mjs` |
 
@@ -283,7 +257,8 @@ Transform dry-run environment knobs (document in write-up if used): `OD01_DECISI
 
 - [analysis-findings-report.md](analysis-findings-report.md) — executive rollup
 - [semantic-layer.md](semantic-layer.md) — metrics and intent registry
-- [intent-comparison-report.md](intent-comparison-report.md) — PASS/GAP/PARTIAL table
+- [intent/intent-comparison-report.md](../discoveries/intent/intent-comparison-report.md) — PASS/GAP/PARTIAL table
+- [demo-session-findings.md](../discoveries/demo-session-findings.md) — live document pane session rollup
 - [client-data-gap-profile.md](client-data-gap-profile.md) — narrative gaps
 - [schema-difficulty-diagrams.md](schema-difficulty-diagrams.md) — impedance diagrams
 - [analysis-self-service-guide.md](analysis-self-service-guide.md) — governed Q→metric workflow
@@ -306,4 +281,4 @@ Transform dry-run environment knobs (document in write-up if used): `OD01_DECISI
 
 ---
 
-**Maintainers:** When metrics, segments, or assessment outputs change, update Part 5 example paths and Part 7 references alongside `semantic-layer.md`. Keep Part 6 brief stable unless the evidence contract or workspace layout changes materially.
+**Maintainers:** When metrics, segments, or assessment outputs change, update Part 5 example paths and Part 7 references alongside `semantic-layer.md`. Edit the demo brief in `demo-client-brief.md` when the evidence contract or workspace layout changes; keep this file's Part 6 as a pointer only.
