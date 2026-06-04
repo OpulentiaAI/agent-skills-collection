@@ -102,6 +102,12 @@ node NewDiscoveriesandPlans/ptree-new-migration-docs-and-skills/discoveries/asse
 | Captain vs Build (Capy) | `references/capy-captain-vs-build.md` | Plan/execute agent split |
 | Capy April 2026 update | `references/capy-april-2026-update.md` | Captain-only workflow, CI awareness |
 
+## Client-facing notes
+
+| Artifact | Path | Notes |
+|----------|------|-------|
+| Glossary & findings | `notes/glossary-and-findings.md` | Key terms (Confluence + sample) and measured findings → blockers for demo sponsors |
+
 ## Related workspace docs
 
 | Path | Role |

@@ -7,7 +7,7 @@ Five folders separate **client inputs**, **agent tooling**, **analysis outputs**
 | [`client-data/`](client-data/) | Confluence PDF, sample zip pointer, BSON snapshot, manifests |
 | [`agent/`](agent/) | Master brief, skills, scripts, orchestration playbook |
 | [`discoveries/`](discoveries/) | Profiles, segments, intent comparison, blockers, assessment, matrices |
-| [`notes/`](notes/) | Post-mortem, guides, evidence index |
+| [`notes/`](notes/) | Post-mortem, guides, evidence index, [glossary & findings](notes/glossary-and-findings.md) |
 | [`references/`](references/) | Summarized third-party articles (agent readiness, analytics, orchestration) |
 
 ## How agents should work
